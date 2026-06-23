@@ -3,11 +3,12 @@ import { UserDataContext } from '../context/UserContext'
 import { Navigate, Outlet } from 'react-router-dom';
 
 import React from 'react'
+import { useAuth } from '../context/AuthProvider';
 
 function PublicRoutes() {
-  const {userData , loading} = useContext(UserDataContext);
+  const {accessToken , loading} = useAuth()
     if(loading) return <div>loading...</div>
-    return userData ? <Navigate to="/feed" />: <Outlet/> 
+    return accessToken ? <Navigate to="/feed" />: <Outlet/> 
 }
 
 export default PublicRoutes

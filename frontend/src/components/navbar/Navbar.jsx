@@ -1,8 +1,10 @@
 import { Home, Users, Bell, Search, X, PlusSquare } from "lucide-react";
 import { useState } from "react";
+import ProfileDropdown from "./ProfileDropdown";
 
 const Navbar = () => {
   const [showSearch, setShowSearch] = useState(false);
+  const [showProfileMenu, setShowProfileMenu] = useState(false);
 
   return (
     <>
@@ -52,14 +54,21 @@ const Navbar = () => {
               </span>
               <span className="text-xs">Notifications</span>
             </div>
-            <div className="flex flex-col items-center cursor-pointer">
-              <img
-                src="https://i.pravatar.cc/100"
-                alt="profile"
-                className="w-6 h-6 rounded-full"
-              />
-              <span className="text-xs">Me</span>
-            </div>
+            <div className="relative">
+  <div
+    onClick={() => setShowProfileMenu(!showProfileMenu)}
+    className="flex flex-col items-center cursor-pointer"
+  >
+    <img
+      src="https://i.pravatar.cc/100"
+      alt="profile"
+      className="w-6 h-6 rounded-full"
+    />
+    <span className="text-xs">Me</span>
+  </div>
+
+  {showProfileMenu && <ProfileDropdown />}
+</div>
           </div>
         </div>
 

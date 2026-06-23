@@ -1,13 +1,13 @@
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import Signup from "./pages/SignUp";
 import Home from "./pages/Home";
-import Feed from "./pages/Feed";
 import Login from "./pages/Login";
 import { useAuth } from "./context/AuthProvider";
 import { useContext } from "react";
 import { UserDataContext } from "./context/UserContext";
 import PrivateRoutes from "./routes/PrivateRoutes";
 import PublicRoutes from "./routes/PublicRoutes";
+import FeedPage from "./pages/FeedPage";
 
 function App() {
   const { loading } = useAuth();
@@ -32,7 +32,7 @@ function App() {
         <Route element={<PrivateRoutes/>}>
           <Route path="/" element={<Home />} />
          
-          <Route path="/feed" element={<Feed />} />
+          <Route path="/feed" element={<FeedPage />} />
         </Route>
       </Routes>
     </BrowserRouter>
