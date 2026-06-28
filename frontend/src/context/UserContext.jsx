@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { createContext } from "react";
 import api from "../utils/api";
 import { useAuth } from "./AuthProvider.jsx";
+import socket, { connectSocket, disconnectSocket } from "../utils/socket";
 
 export const UserDataContext = createContext();
 function UserContext({ children }) {
@@ -31,10 +32,34 @@ function UserContext({ children }) {
     }
   }, [accessToken]);
 
-  const value = { userData, setUserData, loading };
+  useEffect(() => {
+    if (!accessToken || !userData?._id) {
+      disconnectSocket();
+      return;
+    }
+
+    connectSocket(userData._id);
+
+    const handleNetworkUpdated = () => {
+      getUserData();
+    };
+
+    socket.on("network:updated", handleNetworkUpdated);
+
+    return () => {
+      socket.off("network:updated", handleNetworkUpdated);
+    };
+  }, [accessToken, userData?._id]);
+
+  const value = {
+    userData,
+    setUserData,
+    loading,
+    refreshUserData: getUserData,
+  };
   return (
     <UserDataContext.Provider value={value}>
-      {children}
+      {!loading && children}
     </UserDataContext.Provider>
   );
 }

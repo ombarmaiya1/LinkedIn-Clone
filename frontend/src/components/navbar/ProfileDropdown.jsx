@@ -1,11 +1,43 @@
+import api from "../../utils/api";
+import { UserDataContext } from "../../context/UserContext";
+import { useContext } from "react";
+import { useAuth } from "../../context/AuthProvider";
+import { setToken } from "../../utils/tokenManager";
+import { useNavigate } from "react-router-dom";
+
+
 const ProfileDropdown = () => {
+
+    
+  const { setAccessToken } = useAuth();
+  const { setUserData ,userData } = useContext(UserDataContext);
+
+  const navigate = useNavigate();
+
+  const navToProfile = () =>{
+    navigate("/profile")
+  }
+
+  const logout = async () => {
+    try {
+      await api.post("/logout", {});
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setUserData(null);
+      setToken(null);
+      setAccessToken(null);
+    
+    }
+  };
+
   return (
     <div className="absolute top-12 right-0 w-80 bg-white border border-gray-200 rounded-lg shadow-lg z-50">
 
       <div className="p-4">
         <div className="flex gap-3">
           <img
-            src="https://i.pravatar.cc/100"
+            src={userData.profileImage}
             alt="profile"
             className="w-14 h-14 rounded-full"
           />
@@ -13,12 +45,12 @@ const ProfileDropdown = () => {
           <div>
             <h3 className="font-semibold text-lg">OM Barmaiya</h3>
             <p className="text-sm text-gray-600">
-              CSE Undergrad | Learning Java, Python & ML
+             {userData.headline}
             </p>
           </div>
         </div>
 
-        <button className="w-full mt-4 border border-blue-600 text-blue-600 rounded-full py-2 hover:bg-blue-50">
+        <button className="w-full mt-4 border border-blue-600 text-blue-600 rounded-full py-2 hover:bg-blue-50" onClick={navToProfile}>
           View Profile
         </button>
       </div>
@@ -49,7 +81,7 @@ const ProfileDropdown = () => {
 
       <hr />
 
-      <button className="w-full text-left p-4 hover:bg-gray-100">
+      <button className="w-full text-left p-4 hover:bg-gray-100" onClick={logout}>
         Sign Out
       </button>
     </div>

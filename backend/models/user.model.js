@@ -36,9 +36,21 @@ const userSchema = new mongoose.Schema(
       type: String,
       default: "",
     },
+
+    bio: { type: String },
     skills: [{ type: String }],
 
-    education: [{ college: { type: String }, degree: { type: String } }],
+    education: [
+      {
+        college: { type: String },
+        degree: { type: String },
+        fieldOfStudy: { type: String },
+        courseDuration: {
+          startDate: { type: String },
+          endDate: { type: String },
+        },
+      },
+    ],
     location: { type: String },
     gender: { type: String, enum: ["male", "female", "other"] },
 
@@ -47,6 +59,10 @@ const userSchema = new mongoose.Schema(
         title: { type: String },
         company: { type: String },
         description: { type: String },
+        startDate: { type: String },
+        endDate: { type: String },
+        location: { type: String },
+        current: { type: Boolean },
       },
     ],
     connections: [
@@ -55,10 +71,22 @@ const userSchema = new mongoose.Schema(
         ref: "User",
       },
     ],
+    connectionRequestsSent: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
+      },
+    ],
+    connectionRequestsReceived: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
+      },
+    ],
 
-    refreshToken : {
-      type:String
-    }
+    refreshToken: {
+      type: String,
+    },
   },
   { timestamps: true },
 );
