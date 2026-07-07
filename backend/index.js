@@ -17,7 +17,7 @@ dotenv.config()
 const app = express();
 const server = http.createServer(app);
 app.use(cors({
-  origin: process.env.CLIENT_URL || "http://localhost:5173",
+  origin: process.env.CLIENT_URL || "https://linkedin-clone-hibm.onrender.com",
     credentials: true,
   }));
 app.use(express.json());

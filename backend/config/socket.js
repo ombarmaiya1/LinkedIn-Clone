@@ -5,7 +5,7 @@ let ioInstance = null;
 const initSocket = (httpServer) => {
   ioInstance = new Server(httpServer, {
     cors: {
-      origin: process.env.CLIENT_URL || "http://localhost:5173",
+      origin: process.env.CLIENT_URL || "https://linkedin-clone-hibm.onrender.com",
       credentials: true,
     },
   });
