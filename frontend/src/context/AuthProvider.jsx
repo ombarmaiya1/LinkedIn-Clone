@@ -8,6 +8,14 @@ export function AuthProvider({ children }) {
   const [accessToken, setAccessToken] = useState(null);
   const [loading, setLoading] = useState(true);
   useEffect(() => {
+    const publicRoutes = ["/login", "/signup"];
+    const currentPath = window.location.pathname;
+
+    if (publicRoutes.includes(currentPath)) {
+      setLoading(false);
+      return;
+    }
+
     const refreshToken = async () => {
       try {
         setLoading(true);
