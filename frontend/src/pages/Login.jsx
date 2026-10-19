@@ -4,13 +4,11 @@ import { APP_URL } from "../config";
 import { useAuth } from "../context/AuthProvider";
 import api from "../utils/api";
 import { setToken } from "../utils/tokenManager";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
-const Login= () => {
-
-
+const Login = () => {
   const navigate = useNavigate();
-  const {setAccessToken} = useAuth();  
+  const { setAccessToken } = useAuth();
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -31,14 +29,11 @@ const Login= () => {
     try {
       setLoading(true);
 
-      const response = await api.post('/login', formData);
+      const response = await api.post("/login", formData);
 
-      console.log(response);
-      
       setAccessToken(response.data.accessToken);
-      setToken(response.data.accessToken)
-       
-       
+      setToken(response.data.accessToken);
+      navigate("/feed");
     } catch (error) {
       console.log(error)
 
@@ -96,12 +91,12 @@ const Login= () => {
 
         <p className="text-center mt-6">
           New to LinkedIn?
-          <a
-            href="/signup"
+          <Link
+            to="/signup"
             className="text-[#0A66C2] font-semibold ml-1"
           >
             Join now
-          </a>
+          </Link>
         </p>
       </div>
     </div>

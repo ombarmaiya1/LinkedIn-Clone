@@ -18,7 +18,7 @@ postRouter.post(
   CreatePostController,
 );
 postRouter.get("/get", authMiddleWare, getAllPostsController);
-export default postRouter;
-
 postRouter.post("/like/:postId", authMiddleWare, likePostController);
 postRouter.post("/comment/:postId", authMiddleWare, commentPostController);
+
+export default postRouter;

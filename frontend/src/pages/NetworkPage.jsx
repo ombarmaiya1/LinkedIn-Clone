@@ -4,6 +4,9 @@ import api from "../utils/api";
 import { UserDataContext } from "../context/UserContext";
 import socket from "../utils/socket";
 
+const DEFAULT_AVATAR =
+  "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png";
+
 const UserTile = ({ user, children }) => {
   if (!user) {
     return null;
@@ -13,9 +16,9 @@ const UserTile = ({ user, children }) => {
     <div className="rounded-xl border border-gray-200 bg-white p-4 shadow-sm flex items-center justify-between gap-4">
       <div className="flex items-center gap-3 min-w-0">
         <img
-          src={user.profileImage || ""}
+          src={user.profileImage || DEFAULT_AVATAR}
           alt={`${user.firstName || ""} ${user.lastName || ""}`}
-          className="h-14 w-14 rounded-full object-cover"
+          className="h-14 w-14 rounded-full object-cover shrink-0"
         />
         <div className="min-w-0">
           <p className="font-semibold text-gray-900 truncate">

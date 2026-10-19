@@ -59,7 +59,16 @@ function UserContext({ children }) {
   };
   return (
     <UserDataContext.Provider value={value}>
-      {!loading && children}
+      {loading ? (
+        <div className="min-h-screen flex items-center justify-center bg-[#f3f2ef]">
+          <div className="flex flex-col items-center gap-3">
+            <div className="w-10 h-10 border-4 border-[#0A66C2] border-t-transparent rounded-full animate-spin"></div>
+            <p className="text-gray-600 text-sm font-medium">Loading LinkedIn...</p>
+          </div>
+        </div>
+      ) : (
+        children
+      )}
     </UserDataContext.Provider>
   );
 }

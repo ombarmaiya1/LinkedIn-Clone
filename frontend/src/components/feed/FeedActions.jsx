@@ -37,41 +37,45 @@ const FeedActions = ({ post }) => {
   };
 
   return (
-    <div className="grid grid-cols-4 border-t">
-      <button
-        type="button"
-        disabled={isLiking}
-        className="py-3 flex justify-center gap-2 hover:bg-gray-100"
-        onClick={handleLike}
-      >
-        <ThumbsUp
-          size={18}
-          className={isLiked ? "fill-blue-500 text-blue-500" : ""}
-        />
-        Like {likeCount ? `(${likeCount})` : ""}
-      </button>
+    <div className="border-t">
+      <div className="grid grid-cols-4">
+        <button
+          type="button"
+          disabled={isLiking}
+          className="py-3 flex justify-center items-center gap-2 text-sm text-gray-600 hover:bg-gray-100 transition-colors"
+          onClick={handleLike}
+        >
+          <ThumbsUp
+            size={18}
+            className={isLiked ? "fill-blue-500 text-blue-500" : ""}
+          />
+          Like {likeCount ? `(${likeCount})` : ""}
+        </button>
 
-      <button
-        type="button"
-        className="py-3 flex justify-center gap-2 hover:bg-gray-100"
-        onClick={() => setIsCommenting(!isCommenting)}
-      >
-        <MessageCircle size={18} />
-        Comment {post?.comments?.length || 0 ? `(${post.comments.length})` : ""}
-      </button>
+        <button
+          type="button"
+          className="py-3 flex justify-center items-center gap-2 text-sm text-gray-600 hover:bg-gray-100 transition-colors"
+          onClick={() => setIsCommenting(!isCommenting)}
+        >
+          <MessageCircle size={18} />
+          Comment {post?.comments?.length || 0 ? `(${post.comments.length})` : ""}
+        </button>
 
-      <button className="py-3 flex justify-center gap-2 hover:bg-gray-100">
-        <Repeat size={18} />
-        Repost
-      </button>
+        <button className="py-3 flex justify-center items-center gap-2 text-sm text-gray-600 hover:bg-gray-100 transition-colors">
+          <Repeat size={18} />
+          Repost
+        </button>
 
-      <button className="py-3 flex justify-center gap-2 hover:bg-gray-100">
-        <Send size={18} />
-        Send
-      </button>
+        <button className="py-3 flex justify-center items-center gap-2 text-sm text-gray-600 hover:bg-gray-100 transition-colors">
+          <Send size={18} />
+          Send
+        </button>
+      </div>
 
       {isCommenting && (
-        <CommentSection initialComments={post.comments} postId={post._id} />
+        <div className="px-4 pb-4">
+          <CommentSection initialComments={post.comments} postId={post._id} />
+        </div>
       )}
     </div>
   );

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import api from "../utils/api.js";
 
 const Signup = () => {
@@ -100,9 +100,9 @@ const Signup = () => {
 
         <p className="text-center mt-6">
           Already on LinkedIn?
-          <a href="/login" className="text-[#0A66C2] font-semibold ml-1">
+          <Link to="/login" className="text-[#0A66C2] font-semibold ml-1">
             Sign in
-          </a>
+          </Link>
         </p>
       </div>
     </div>

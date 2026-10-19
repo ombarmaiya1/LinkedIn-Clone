@@ -2,6 +2,9 @@ import { useState } from "react";
 import { X, ImagePlus } from "lucide-react";
 import api from "../../utils/api.js";
 
+const DEFAULT_AVATAR =
+  "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png";
+
 const CreatePostModal = ({ open, setOpen, userData }) => {
   const [caption, setCaption] = useState("");
   const [image, setImage] = useState(null);
@@ -70,9 +73,9 @@ const CreatePostModal = ({ open, setOpen, userData }) => {
         {/* User */}
         <div className="flex gap-3 p-4">
           <img
-            src={userData.profileImage || ""}
-            className="w-12 h-12 rounded-full"
-            alt=""
+            src={userData.profileImage || DEFAULT_AVATAR}
+            className="w-12 h-12 rounded-full object-cover shrink-0"
+            alt="profile"
           />
 
           <div>

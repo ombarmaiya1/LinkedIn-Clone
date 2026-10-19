@@ -73,14 +73,22 @@ const Navbar = () => {
                 className="flex flex-col items-center cursor-pointer"
               >
                 <img
-                  src={userData.profileImage}
+                  src={
+                    userData?.profileImage ||
+                    "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
+                  }
                   alt="profile"
-                  className="w-6 h-6 rounded-full"
+                  className="w-6 h-6 rounded-full object-cover"
                 />
                 <span className="text-xs">Me</span>
               </div>
 
-              {showProfileMenu && <ProfileDropdown userData={userData} />}
+              {showProfileMenu && (
+                <ProfileDropdown
+                  userData={userData}
+                  onClose={() => setShowProfileMenu(false)}
+                />
+              )}
             </div>
           </div>
         </div>
@@ -134,9 +142,12 @@ const Navbar = () => {
           className="flex flex-col items-center cursor-pointer"
         >
           <img
-            src={userData.profileImage}
+            src={
+              userData?.profileImage ||
+              "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
+            }
             alt="profile"
-            className="w-6 h-6 rounded-full"
+            className="w-6 h-6 rounded-full object-cover"
           />
           <span className="text-xs">Me</span>
         </Link>

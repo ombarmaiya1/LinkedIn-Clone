@@ -6,17 +6,19 @@ import { setToken } from "../../utils/tokenManager";
 import { useNavigate } from "react-router-dom";
 
 
-const ProfileDropdown = () => {
+const DEFAULT_AVATAR =
+  "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png";
 
-    
+const ProfileDropdown = ({ onClose }) => {
   const { setAccessToken } = useAuth();
-  const { setUserData ,userData } = useContext(UserDataContext);
+  const { setUserData, userData } = useContext(UserDataContext);
 
   const navigate = useNavigate();
 
-  const navToProfile = () =>{
-    navigate("/profile")
-  }
+  const navToProfile = () => {
+    onClose?.();
+    navigate("/profile");
+  };
 
   const logout = async () => {
     try {
@@ -27,30 +29,35 @@ const ProfileDropdown = () => {
       setUserData(null);
       setToken(null);
       setAccessToken(null);
-    
+      onClose?.();
+      navigate("/login");
     }
   };
 
   return (
     <div className="absolute top-12 right-0 w-80 bg-white border border-gray-200 rounded-lg shadow-lg z-50">
-
       <div className="p-4">
-        <div className="flex gap-3">
+        <div className="flex gap-3 items-center">
           <img
-            src={userData.profileImage}
+            src={userData?.profileImage || DEFAULT_AVATAR}
             alt="profile"
-            className="w-14 h-14 rounded-full"
+            className="w-14 h-14 rounded-full object-cover shrink-0"
           />
 
-          <div>
-            <h3 className="font-semibold text-lg">OM Barmaiya</h3>
-            <p className="text-sm text-gray-600">
-             {userData.headline}
+          <div className="min-w-0">
+            <h3 className="font-semibold text-lg truncate">
+              {`${userData?.firstName || ""} ${userData?.lastName || ""}`.trim() || "User"}
+            </h3>
+            <p className="text-sm text-gray-600 truncate">
+              {userData?.headline || "No headline"}
             </p>
           </div>
         </div>
 
-        <button className="w-full mt-4 border border-blue-600 text-blue-600 rounded-full py-2 hover:bg-blue-50" onClick={navToProfile}>
+        <button
+          className="w-full mt-4 border border-blue-600 text-blue-600 rounded-full py-2 hover:bg-blue-50 transition"
+          onClick={navToProfile}
+        >
           View Profile
         </button>
       </div>

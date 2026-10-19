@@ -142,9 +142,9 @@ export function ProfilePage({ initialProfile }) {
 
         case "skills": {
           const response = await api.put("/updateskills", {
-            skills: Array.isArray(data.skills)
+            skills: Array.isArray(data?.skills)
               ? data.skills
-              : data.skills
+              : (data?.skills || "")
                   .split(",")
                   .map((skill) => skill.trim())
                   .filter(Boolean),

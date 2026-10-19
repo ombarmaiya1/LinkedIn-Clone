@@ -2,6 +2,9 @@ import { useState, useContext, useEffect } from "react";
 import { UserDataContext } from "../../context/UserContext";
 import api from "../../utils/api.js";
 
+const DEFAULT_AVATAR =
+  "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png";
+
 const CommentSection = ({ initialComments = [], postId }) => {
   const [comments, setComments] = useState(() =>
     [...initialComments].reverse(),
@@ -27,7 +30,7 @@ const CommentSection = ({ initialComments = [], postId }) => {
   };
 
   const getProfileImage = (item) => {
-    return item?.profileImage || item?.author?.profileImage || "";
+    return item?.profileImage || item?.author?.profileImage || DEFAULT_AVATAR;
   };
 
   const getCommentText = (item) => {
@@ -55,7 +58,7 @@ const CommentSection = ({ initialComments = [], postId }) => {
       {/* Add Comment */}
       <div className="flex items-start gap-3">
         <img
-          src={userData?.profileImage || ""}
+          src={userData?.profileImage || DEFAULT_AVATAR}
           alt=""
           className="w-10 h-10 rounded-full object-cover shrink-0"
         />

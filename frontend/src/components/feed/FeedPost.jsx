@@ -3,6 +3,9 @@ import { useContext, useMemo, useState } from "react";
 import api from "../../utils/api";
 import { UserDataContext } from "../../context/UserContext";
 
+const DEFAULT_AVATAR =
+  "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png";
+
 const FeedPost = ({ post }) => {
   const { userData, refreshUserData } = useContext(UserDataContext);
   const [loadingConnect, setLoadingConnect] = useState(false);
@@ -23,14 +26,14 @@ const FeedPost = ({ post }) => {
       return "hidden";
     }
 
-    const isConnected = (userData.connections || []).some(
+    const isConnected = (userData?.connections || []).some(
       (id) => id?.toString() === authorId,
     );
     if (isConnected) {
       return "connected";
     }
 
-    const isPending = (userData.connectionRequestsSent || []).some(
+    const isPending = (userData?.connectionRequestsSent || []).some(
       (id) => id?.toString() === authorId,
     );
     if (isPending) {
@@ -41,8 +44,8 @@ const FeedPost = ({ post }) => {
   }, [
     authorId,
     currentUserId,
-    userData.connectionRequestsSent,
-    userData.connections,
+    userData?.connectionRequestsSent,
+    userData?.connections,
   ]);
 
   const handleConnect = async () => {
@@ -62,13 +65,13 @@ const FeedPost = ({ post }) => {
   };
 
   return (
-    <div className="bg-white rounded-xl ">
+    <div className="bg-white rounded-xl border border-gray-200 shadow-sm">
       <div className="p-4">
         <div className="flex items-start justify-between gap-3">
           <div className="flex gap-3">
             <img
-              src={post.author.profileImage || ""}
-              className="w-12 h-12 rounded-full"
+              src={post.author.profileImage || DEFAULT_AVATAR}
+              className="w-12 h-12 rounded-full object-cover shrink-0"
               alt="profile"
             />
 

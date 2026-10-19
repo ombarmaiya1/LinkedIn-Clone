@@ -16,10 +16,24 @@ dns.setServers(["8.8.8.8" ,"1.1.1.1"]);
 dotenv.config()
 const app = express();
 const server = http.createServer(app);
-app.use(cors({
-  origin: process.env.CLIENT_URL || "https://linkedin-clone-hibm.onrender.com",
+const allowedOrigins = [
+  process.env.CLIENT_URL,
+  "http://localhost:5173",
+  "http://localhost:3000",
+  "https://linkedin-clone-hibm.onrender.com",
+].filter(Boolean);
+
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      if (!origin || allowedOrigins.includes(origin)) {
+        return callback(null, true);
+      }
+      return callback(null, true); // Fallback to allow connection
+    },
     credentials: true,
-  }));
+  }),
+);
 app.use(express.json());
 app.use(cookieParser());
 

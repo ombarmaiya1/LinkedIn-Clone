@@ -1,11 +1,17 @@
 import { Server } from "socket.io";
 
 let ioInstance = null;
-
 const initSocket = (httpServer) => {
+  const allowedOrigins = [
+    process.env.CLIENT_URL,
+    "http://localhost:5173",
+    "http://localhost:3000",
+    "https://linkedin-clone-hibm.onrender.com",
+  ].filter(Boolean);
+
   ioInstance = new Server(httpServer, {
     cors: {
-      origin: process.env.CLIENT_URL || "https://linkedin-clone-hibm.onrender.com",
+      origin: allowedOrigins,
       credentials: true,
     },
   });

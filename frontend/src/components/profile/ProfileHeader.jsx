@@ -2,14 +2,20 @@
 
 import { Edit3, MapPin, Camera, Image } from "lucide-react";
 
+const DEFAULT_AVATAR =
+  "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png";
+
 export function ProfileHeader({ profile, onEdit, onImageUpload }) {
+  const fullName =
+    `${profile?.firstName || ""} ${profile?.lastName || ""}`.trim() || "User";
+
   return (
     <div className="bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden mb-6">
       {/* Cover Photo */}
       <div
         className="h-52 bg-cover bg-center relative"
         style={{
-          backgroundImage: profile.coverImage
+          backgroundImage: profile?.coverImage
             ? `url(${profile.coverImage})`
             : "linear-gradient(90deg, #0a66c2 0%, #0073b1 50%, #004182 100%)",
         }}
@@ -39,9 +45,9 @@ export function ProfileHeader({ profile, onEdit, onImageUpload }) {
           <div className="flex items-end gap-6">
             <div className="relative">
               <img
-                src={profile.profileImage}
-                alt={`${profile.firstName} ${profile.lastName}`}
-                className="w-48 h-48 rounded-full border-4 border-white object-cover shadow-lg"
+                src={profile?.profileImage || DEFAULT_AVATAR}
+                alt={fullName}
+                className="w-48 h-48 rounded-full border-4 border-white object-cover shadow-lg bg-white"
               />
               <label className="absolute bottom-0 right-0 bg-white rounded-full p-2 shadow-lg cursor-pointer hover:bg-gray-100">
                 <Camera size={18} />
@@ -59,10 +65,10 @@ export function ProfileHeader({ profile, onEdit, onImageUpload }) {
             </div>
             <div className="pb-4">
               <h1 className="text-3xl font-bold text-gray-900">
-                {profile.firstName + " " + profile.lastName}
+                {fullName}
               </h1>
               <p className="text-lg text-gray-700 font-medium mt-1">
-                {profile.headline}
+                {profile?.headline || "No headline"}
               </p>
               <div className="flex items-center gap-1 text-gray-600 mt-2">
                 <MapPin size={16} />
