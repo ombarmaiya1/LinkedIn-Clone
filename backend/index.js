@@ -40,7 +40,7 @@ app.use(cookieParser());
 app.use("/",authrouter);
 app.use("/",userRouter);
 app.use("/post",postRouter);
-app.get("/health",()=>{
+app.get("/health",(req,res)=>{
   return res.json("Success")
 }); 
 
