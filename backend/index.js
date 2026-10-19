@@ -40,6 +40,9 @@ app.use(cookieParser());
 app.use("/",authrouter);
 app.use("/",userRouter);
 app.use("/post",postRouter);
+app.get("/health",()=>{
+  return res.json({"Success"})
+}); 
 
 const port = process.env.PORT;
 
